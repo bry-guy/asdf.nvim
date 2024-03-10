@@ -1,7 +1,14 @@
 local M = {}
-local health = require('health')
 
-local function check_tool_versions()
+local start = vim.health.start or vim.health.report_start
+local ok = vim.health.ok or vim.health.report_ok
+local warn = vim.health.warn or vim.health.report_warn
+local error = vim.health.error or vim.health.report_error
+
+-- TODO: Update this to find the correct .tool-versions to examine
+-- Use: $pwd/.tool-versions, $repo/.tool-versions, $~/.tool-versions
+function M.check()
+  start('asdf')
   local file_path = vim.fn.stdpath('config') .. '/.tool-versions'
   local lines = {}
 
@@ -25,25 +32,22 @@ local function check_tool_versions()
       -- Check if result contains the expected version
       local version_found = false
       for _, res_line in ipairs(result) do
-        if res_line:match(version) then
-          version_found = true
-          break
-        end
+		local trimmed_line = res_line:match("^%s*(.-)%s*$")
+		trimmed_line = trimmed_line:gsub("^%*", "")
+
+		if trimmed_line == version then
+		  version_found = true
+		  break
+		end
       end
 
       if version_found then
-        health.report_ok(tool .. " " .. version .. " is installed.")
+        ok(tool .. " " .. version .. " is installed.")
       else
-        health.report_error("Missing " .. tool .. " version " .. version .. ".")
+        error("Missing " .. tool .. " version " .. version .. ".")
       end
     end
   end
-end
-
-function M.check()
-  health.start('asdf')
-  check_tool_versions()
-  health.report_finish()
 end
 
 return M
