@@ -1,14 +1,15 @@
--- local install = require("asdf.install")
+local install = require("asdf.install")
 local config = require("asdf.config")
-
+local highlights = require("asdf.highlights")
 
 local M = {}
 
-function M.setup(user_config)
-  config.setup(user_config)
+function M.setup(opts)
+  config.setup(opts)
+  highlights.setup(opts)
 end
 
--- M.install_tool = install.tool
+M.install_tool = install.tool
 
 return M
 
