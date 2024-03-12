@@ -16,7 +16,7 @@ function M.err(msg)
   vim.api.nvim_echo({{msg, "AsdfError"}}, true, {})
 end
 
-function M.execute_command(command, command_msg)
+function M.execute(command, command_msg)
   if not command or command == "" then
     print("No command provided.")
     return
@@ -32,6 +32,26 @@ function M.execute_command(command, command_msg)
     end
   else
     M.ok("OK: " .. command_msg)
+  end
+end
+
+function M.execute_output(command, command_msg)
+  if not command or command == "" then
+    print("No command provided.")
+    return
+  end
+
+  local output = vim.fn.systemlist(command)
+  local exit_code = vim.v.shell_error
+
+  if exit_code ~= 0 then
+    M.err("ERROR: " .. command_msg)
+  else
+    M.ok("OK: " .. command_msg)
+  end
+
+  for _, line in ipairs(output) do
+	print(line)
   end
 end
 
