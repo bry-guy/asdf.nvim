@@ -12,6 +12,7 @@ end
 
 M.reshim = tool.reshim
 M.current = tool.current
+M.tool_versions = tool.versions
 M.tool_install = tool.install
 M.tool_uninstall = tool.uninstall
 M.tool_current = tool.current

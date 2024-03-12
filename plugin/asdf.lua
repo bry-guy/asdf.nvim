@@ -8,6 +8,14 @@ vim.api.nvim_create_user_command('AsdfCurrent', function(opts)
   tool.current(opts.args)
 end, {nargs = "?"})
 
+vim.api.nvim_create_user_command('AsdfToolVersions', function()
+  local tool = require("asdf.tool")
+  local path = tool.versions()
+  if path ~= nil then
+	vim.cmd('edit ' .. path)
+  end
+end, {nargs = 0})
+
 vim.api.nvim_create_user_command('AsdfToolInstall', function(opts)
   local tool = require("asdf.tool")
   tool.install(opts.args)
@@ -42,3 +50,4 @@ vim.api.nvim_create_user_command('AsdfPluginList', function()
   local plugin = require("asdf.plugin")
   plugin.list()
 end, {nargs = 1})
+

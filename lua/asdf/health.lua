@@ -1,3 +1,5 @@
+local tool = require("asdf.tool")
+
 local M = {}
 
 local start = vim.health.start or vim.health.report_start
@@ -5,11 +7,9 @@ local ok = vim.health.ok or vim.health.report_ok
 local warn = vim.health.warn or vim.health.report_warn
 local error = vim.health.error or vim.health.report_error
 
--- TODO: Update this to find the correct .tool-versions to examine
--- Use: $pwd/.tool-versions, $repo/.tool-versions, $~/.tool-versions
 function M.check()
   start('asdf')
-  local file_path = vim.fn.stdpath('config') .. '/.tool-versions'
+  local file_path = tool.versions()
   local lines = {}
 
   -- Read .tool-versions file line by line
