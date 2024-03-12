@@ -1,7 +1,6 @@
 local M = {
-  auto_refresh = false,
-  auto_install = false,
-  debug = false,
+  -- auto_refresh = false,
+  -- auto_install = false,
 }
 
 function M.setup(user_config)

@@ -1,4 +1,4 @@
-local tool = require("asdf.tool")
+local t = require("asdf.tool")
 
 local M = {}
 
@@ -9,7 +9,7 @@ local error = vim.health.error or vim.health.report_error
 
 function M.check()
   start('asdf')
-  local file_path = tool.versions()
+  local file_path = t.versions()
   local lines = {}
 
   -- Read .tool-versions file line by line
