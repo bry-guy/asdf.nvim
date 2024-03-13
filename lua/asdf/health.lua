@@ -42,9 +42,9 @@ function M.check()
       end
 
       if version_found then
-        ok(tool .. " " .. version .. " is installed.")
+        ok(tool .. " " .. version)
       else
-        error("Missing " .. tool .. " version " .. version .. ".")
+        error(tool .. " version " .. version .. "not found.")
       end
     end
   end
