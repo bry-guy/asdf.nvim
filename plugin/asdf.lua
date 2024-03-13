@@ -1,15 +1,24 @@
+local utils = require("asdf.utils")
+local plugin = require("asdf.plugin")
+local tool = require("asdf.tool")
+
+local function print_pretty(cmd, output, exit_code)
+  utils.print_status(cmd, exit_code)
+
+  if exit_code == 0 then
+	utils.print_table(output)
+  end
+end
+
 vim.api.nvim_create_user_command('AsdfReshim', function(opts)
-  local tool = require("asdf.tool")
-  tool.reshim(opts.args)
+  print_pretty(tool.reshim(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfCurrent', function(opts)
-  local tool = require("asdf.tool")
-  tool.current(opts.args)
+  print_pretty(tool.current(opts.args))
 end, {nargs = "?"})
 
 vim.api.nvim_create_user_command('AsdfToolVersions', function()
-  local tool = require("asdf.tool")
   local path = tool.versions()
   if path ~= nil then
 	vim.cmd('edit ' .. path)
@@ -17,37 +26,30 @@ vim.api.nvim_create_user_command('AsdfToolVersions', function()
 end, {nargs = 0})
 
 vim.api.nvim_create_user_command('AsdfToolInstall', function(opts)
-  local tool = require("asdf.tool")
-  tool.install(opts.args)
+  print_pretty(tool.install(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfToolUninstall', function(opts)
-  local tool = require("asdf.tool")
-  tool.uninstall(opts.args)
+  print_pretty(tool.uninstall(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfToolList', function(opts)
-  local tool = require("asdf.tool")
-  tool.list(opts.args)
+  print_pretty(tool.list(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfToolListAll', function(opts)
-  local tool = require("asdf.tool")
-  tool.list_all(opts.args)
+  print_pretty(tool.list_all(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfPluginAdd', function(opts)
-  local plugin = require("asdf.plugin")
-  plugin.add(opts.args)
+  print_pretty(plugin.add(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfPluginRemove', function(opts)
-  local plugin = require("asdf.plugin")
-  plugin.remove(opts.args)
+  print_pretty(plugin.remove(opts.args))
 end, {nargs = 1})
 
 vim.api.nvim_create_user_command('AsdfPluginList', function()
-  local plugin = require("asdf.plugin")
-  plugin.list()
+  print_pretty(plugin.list())
 end, {nargs = 1})
 
